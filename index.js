@@ -51,12 +51,13 @@ Client.prototype.onerror = function(err){
 /**
  * Send `msg`.
  *
- * @param {Buffer|String} msg
+ * @param {String} msg
  * @api private
  */
 
 Client.prototype.send = function(msg){
-  this.sock.send(msg, 0, msg.length, this.port, this.host);
+  var buf = new Buffer(msg);
+  this.sock.send(buf, 0, buf.length, this.port, this.host);
 };
 
 /**
