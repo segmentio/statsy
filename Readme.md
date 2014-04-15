@@ -18,6 +18,7 @@ var http = require('http');
 var stats = new Client;
 
 setInterval(function(){
+  stats.incr('requests');
   var end = stats.timer('request');
   http.get('http://yahoo.com', function(err, res){
     // do stuff
