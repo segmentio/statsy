@@ -4,7 +4,7 @@
  */
 
 var Emitter = require('events').EventEmitter;
-var debug = require('debug')('statsd-client');
+var debug = require('debug')('statsy');
 var fwd = require('forward-events');
 var assert = require('assert');
 var dgram = require('dgram');
