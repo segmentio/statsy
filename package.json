@@ -1,7 +1,7 @@
 {
-  "name": "statsd-client",
+  "name": "statsy",
   "version": "0.0.1",
-  "repository": "segmentio/statsd-client",
+  "repository": "segmentio/statsy",
   "description": "statsd client",
   "keywords": [
     "statsd"
@@ -14,5 +14,6 @@
     "mocha": "*",
     "should": "*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "files": ["index.js"]
 }

@@ -1,19 +1,19 @@
 
-# statsd-client
+# statsy
 
   A simple statsd client.
 
 ## Installation
 
 ```
-$ npm install segmentio/statsd-client
+$ npm install statsy
 ```
 
 ## Example
 
 ```js
 
-var Client = require('statsd-client');
+var Client = require('statsy');
 var http = require('http');
 var stats = new Client;
 
