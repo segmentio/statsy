@@ -38,7 +38,7 @@ setInterval(function(){
  - `port` [8125]
  - `prefix` optional prefix ('.' is appended)
 
- Events from the socket are forwarded, however by default
+Events from the socket are forwarded, however by default
  errors are simply ignored.
 
 ### .gauge(name, val)
