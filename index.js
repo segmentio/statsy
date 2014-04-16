@@ -123,6 +123,30 @@ Client.prototype.timer = function(name, val){
 };
 
 /**
+ * Send a histogram value or omit the value
+ * to return a completion function.
+ *
+ * @param {String} name
+ * @param {Number} [val]
+ * @return {Function}
+ * @api public
+ */
+
+Client.prototype.histogram = function(name, val){
+  var self = this;
+
+  if (1 == arguments.length) {
+    var start = new Date;
+    return function(){
+      self.histogram(name, new Date - start);
+    }
+  }
+
+  debug('histogram %j %s', name, val);
+  this.write(name + ':' + val + '|h');
+};
+
+/**
  * Send a counter value with optional sample rate.
  *
  * @param {String} name

@@ -61,6 +61,14 @@ Events from the socket are forwarded, however by default
 
   Decrement by `val` or 1.
 
+### .histogram(name, val)
+
+ Send histogram value.
+
+### .histogram(name)
+
+ Return histogram delta function.
+
 ### .timer(name, val)
 
  Send timer value.
