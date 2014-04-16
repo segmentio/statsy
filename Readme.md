@@ -49,6 +49,10 @@ Events from the socket are forwarded, however by default
 
   Send meter value.
 
+### .set(name, val)
+
+  Send set value.
+
 ### .count(name, val)
 
   Send count value.

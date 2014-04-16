@@ -86,6 +86,19 @@ Client.prototype.gauge = function(name, val){
 };
 
 /**
+ * Send a set value.
+ *
+ * @param {String} name
+ * @param {Number} val
+ * @api public
+ */
+
+Client.prototype.set = function(name, val){
+  debug('set %j %s', name, val);
+  this.write(name + ':' + val + '|s');
+};
+
+/**
  * Send a meter value.
  *
  * @param {String} name
