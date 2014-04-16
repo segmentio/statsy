@@ -7,7 +7,7 @@
     "statsd"
   ],
   "dependencies": {
-    "debug": "~0.8.1",
+    "debug": "~0.8.0",
     "forward-events": "0.0.1"
   },
   "devDependencies": {
