@@ -37,9 +37,11 @@ setInterval(function(){
  - `host` [localhost]
  - `port` [8125]
  - `prefix` optional prefix ('.' is appended)
+ - `tcp` use TCP instead of UDP
 
 Events from the socket are forwarded, however by default
- errors are simply ignored.
+ errors are simply ignored. When TCP is used reconnection
+ attempts will be made until the connection is re-established.
 
 ### .gauge(name, val)
 
