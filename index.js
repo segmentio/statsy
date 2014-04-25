@@ -156,7 +156,7 @@ Client.prototype.histogram = function(name, val){
   }
 
   debug('histogram %j %s', name, val);
-  this.write(name + ':' + val + '|h');
+  this.write(name + ':' + val + '|ms');
 };
 
 /**
