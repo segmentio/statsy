@@ -6,6 +6,7 @@
 var Emitter = require('events').EventEmitter;
 var debug = require('debug')('statsy');
 var fwd = require('forward-events');
+var finished = require('finished');
 var Backoff = require('backo');
 var assert = require('assert');
 var dgram = require('dgram');
@@ -73,7 +74,7 @@ Client.prototype.connect = function(){
   if (this.tcp) {
     this.sock = net.connect({ host: this.host, port: this.port });
     this.sock.on('connect', this.backoff.reset.bind(this.backoff));
-    this.sock.on('close', this.reconnect.bind(this));
+    finished(this.sock, this.reconnect.bind(this));
   } else {
     this.sock = dgram.createSocket('udp4');
     fwd(this.sock, this);
