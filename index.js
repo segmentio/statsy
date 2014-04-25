@@ -6,8 +6,10 @@
 var Emitter = require('events').EventEmitter;
 var debug = require('debug')('statsy');
 var fwd = require('forward-events');
+var Backoff = require('backo');
 var assert = require('assert');
 var dgram = require('dgram');
+var net = require('net');
 var url = require('url');
 
 /**
@@ -26,12 +28,13 @@ module.exports = Client;
 function Client(opts) {
   if (!(this instanceof Client)) return new Client(opts);
   opts = opts || {};
-  this.sock = dgram.createSocket('udp4');
   this.host = opts.host || 'localhost';
   this.port = opts.port || 8125;
+  this.tcp = opts.tcp;
   this.prefix = opts.prefix;
-  fwd(this.sock, this);
+  this.backoff = new Backoff;
   this.on('error', this.onerror.bind(this));
+  this.connect();
 }
 
 /**
@@ -49,6 +52,35 @@ Client.prototype.onerror = function(err){
 };
 
 /**
+ * Reconnect TCP.
+ *
+ * @api private
+ */
+
+Client.prototype.reconnect = function(){
+  var ms = this.backoff.duration();
+  debug('connection lost, reconnecting in %sms', ms);
+  setTimeout(this.connect.bind(this), ms);
+};
+
+/**
+ * Connect via TCP or UDP.
+ *
+ * @api private
+ */
+
+Client.prototype.connect = function(){
+  if (this.tcp) {
+    this.sock = net.connect({ host: this.host, port: this.port });
+    this.sock.on('connect', this.backoff.reset.bind(this.backoff));
+    this.sock.on('close', this.reconnect.bind(this));
+  } else {
+    this.sock = dgram.createSocket('udp4');
+    fwd(this.sock, this);
+  }
+};
+
+/**
  * Send `msg`.
  *
  * @param {String} msg
@@ -56,8 +88,14 @@ Client.prototype.onerror = function(err){
  */
 
 Client.prototype.send = function(msg){
-  var buf = new Buffer(msg);
-  this.sock.send(buf, 0, buf.length, this.port, this.host);
+  var sock = this.sock;
+
+  if (this.tcp) {
+    if (sock.writable) sock.write(msg + '\n');
+  } else {
+    var buf = new Buffer(msg);
+    sock.send(buf, 0, buf.length, this.port, this.host);
+  }
 };
 
 /**

@@ -8,12 +8,15 @@
   ],
   "dependencies": {
     "debug": "~0.8.0",
-    "forward-events": "0.0.1"
+    "forward-events": "0.0.1",
+    "backo": "~1.0.1"
   },
   "devDependencies": {
     "mocha": "*",
     "should": "*"
   },
   "license": "MIT",
-  "files": ["index.js"]
+  "files": [
+    "index.js"
+  ]
 }
