@@ -1,4 +1,9 @@
 
+0.1.1 / 2014-04-25
+==================
+
+ * change histogram |h to |ms since most statsd implementations seem to not support it
+
 0.1.0 / 2014-04-15
 ==================
 
