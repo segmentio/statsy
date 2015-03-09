@@ -81,6 +81,16 @@ Client.prototype.connect = function(){
   }
 };
 
+Client.prototype.close = function(cb){
+  if (!this.sock) return cb && process.nextTick(cb);
+  if (this.tcp) {
+    this.sock.end(cb);
+  } else {
+    if (cb) this.sock.once('close', cb);
+    this.sock.close();
+  }
+};
+
 /**
  * Send `msg`.
  *
