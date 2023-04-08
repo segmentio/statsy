@@ -10,7 +10,7 @@
     "debug": "~0.8.0",
     "forward-events": "0.0.1",
     "backo": "~1.0.1",
-    "finished": "~1.1.2"
+    "finished": "~1.2.2"
   },
   "devDependencies": {
     "mocha": "*",
